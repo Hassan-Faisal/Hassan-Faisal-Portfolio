@@ -2,66 +2,22 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
-export type NavVariant = "engineering" | "research";
+const navItems = [
+  { label: "Home", id: "home" },
+  { label: "Projects", id: "projects" },
+  { label: "Capabilities", id: "capabilities" },
+  { label: "Publications", id: "publications" },
+  { label: "Experience", id: "experience" },
+  { label: "Contact", id: "contact" },
+];
 
-const navSets: Record<NavVariant, { label: string; id: string }[]> = {
-  engineering: [
-    { label: "Home", id: "home" },
-    { label: "Work", id: "work" },
-    { label: "Capabilities", id: "capabilities" },
-    { label: "Stack", id: "stack" },
-    { label: "Experience", id: "experience" },
-    { label: "Contact", id: "contact" },
-  ],
-  research: [
-    { label: "Overview", id: "overview" },
-    { label: "Publications", id: "publications" },
-    { label: "Experience", id: "research" },
-    { label: "Projects", id: "projects" },
-    { label: "Education", id: "education" },
-    { label: "Contact", id: "contact" },
-  ],
-};
-
-function AudienceSwitch({ variant }: { variant: NavVariant }) {
-  const pathname = usePathname();
-  const active: NavVariant = pathname?.startsWith("/research")
-    ? "research"
-    : variant;
-
-  return (
-    <div className="flex items-center rounded-full border border-white/12 bg-white/[0.03] p-0.5">
-      {(
-        [
-          { key: "engineering", label: "Engineering", href: "/" },
-          { key: "research", label: "Research", href: "/research" },
-        ] as const
-      ).map(({ key, label, href }) => (
-        <Link
-          key={key}
-          href={href}
-          aria-current={active === key ? "page" : undefined}
-          className={`rounded-full px-3 py-1.5 font-mono text-[0.7rem] font-medium transition ${
-            active === key
-              ? "bg-flame-grad text-void"
-              : "text-white/55 hover:text-white"
-          }`}
-        >
-          {label}
-        </Link>
-      ))}
-    </div>
-  );
-}
-
-export default function SiteNav({ variant }: { variant: NavVariant }) {
-  const items = navSets[variant];
+export default function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(items[0].id);
+  const [active, setActive] = useState(navItems[0].id);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -71,7 +27,7 @@ export default function SiteNav({ variant }: { variant: NavVariant }) {
   }, []);
 
   useEffect(() => {
-    const sections = items
+    const sections = navItems
       .map(({ id }) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
 
@@ -86,29 +42,29 @@ export default function SiteNav({ variant }: { variant: NavVariant }) {
 
     sections.forEach((s) => io.observe(s));
     return () => io.disconnect();
-  }, [items]);
+  }, []);
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-void/80 py-3 backdrop-blur-xl"
+          ? "border-b border-stone-200 bg-white/80 py-3 shadow-sm backdrop-blur-xl dark:border-stone-800 dark:bg-stone-950/80"
           : "border-b border-transparent bg-transparent py-4"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5">
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2.5 font-display text-base font-bold tracking-tight"
+          className="flex shrink-0 items-center gap-2.5 font-display text-base font-bold tracking-tight text-stone-900 dark:text-white"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-flame-grad text-sm font-bold text-void shadow-glow">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-orange-500 text-sm font-bold text-white">
             HF
           </span>
-          <span className="hidden lg:inline">Hassan Faisal</span>
+          <span className="hidden sm:inline">Hassan Faisal</span>
         </Link>
 
         <div className="hidden items-center gap-0.5 lg:flex">
-          {items.map(({ label, id }) => (
+          {navItems.map(({ label, id }) => (
             <a
               key={id}
               href={`#${id}`}
@@ -121,15 +77,19 @@ export default function SiteNav({ variant }: { variant: NavVariant }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <AudienceSwitch variant={variant} />
-          </div>
+          <ThemeToggle />
+          <a
+            href="#contact"
+            className="hidden rounded-full bg-stone-900 px-4 py-2 font-mono text-xs font-medium text-white transition hover:bg-stone-800 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-200 sm:inline-flex"
+          >
+            Get in touch
+          </a>
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-xl border border-white/12 bg-white/[0.03] text-white lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-xl border border-stone-200 text-stone-600 dark:border-stone-700 dark:text-stone-400 lg:hidden"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -138,20 +98,17 @@ export default function SiteNav({ variant }: { variant: NavVariant }) {
 
       {/* Mobile menu */}
       <div
-        className={`overflow-hidden border-t border-white/10 bg-void/95 backdrop-blur-xl transition-[max-height] duration-300 lg:hidden ${
+        className={`overflow-hidden border-t border-stone-100 bg-white/95 backdrop-blur-xl transition-[max-height] duration-300 dark:border-stone-800 dark:bg-stone-950/95 lg:hidden ${
           open ? "max-h-[32rem]" : "max-h-0 border-t-0"
         }`}
       >
         <div className="flex flex-col gap-1 px-5 py-4">
-          <div className="mb-3 sm:hidden">
-            <AudienceSwitch variant={variant} />
-          </div>
-          {items.map(({ label, id }) => (
+          {navItems.map(({ label, id }) => (
             <a
               key={id}
               href={`#${id}`}
               onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2.5 font-mono text-sm text-white/70 transition hover:bg-white/5 hover:text-white"
+              className="rounded-lg px-3 py-2.5 font-mono text-sm text-stone-600 transition hover:bg-stone-50 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-white"
             >
               {label}
             </a>
@@ -159,9 +116,9 @@ export default function SiteNav({ variant }: { variant: NavVariant }) {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="btn-primary mt-2 w-full"
+            className="mt-2 w-full rounded-full bg-stone-900 px-4 py-2.5 text-center font-mono text-xs font-medium text-white dark:bg-white dark:text-stone-900"
           >
-            Let&apos;s talk <ArrowUpRight size={15} />
+            Get in touch
           </a>
         </div>
       </div>

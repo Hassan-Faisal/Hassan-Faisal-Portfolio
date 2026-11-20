@@ -1,14 +1,10 @@
-// Single source of truth for every fact on the site.
-// Both the engineering page (/) and the research page (/research) read from here,
-// so the two views can never drift out of sync.
-
 import {
   Award,
   Bot,
   BrainCircuit,
-  Boxes,
   BriefcaseBusiness,
   Crown,
+  FileText,
   FlaskConical,
   GraduationCap,
   Microscope,
@@ -16,61 +12,36 @@ import {
   Plane,
   Stethoscope,
   Workflow,
+  Zap,
 } from "lucide-react";
 
-// Taken from the hyperlinks embedded in the CV PDF.
 export const GITHUB_URL = "https://github.com/Hassan-Faisal";
 export const ORCID_ID = "0009-0006-1434-894X";
 export const ORCID_URL = `https://orcid.org/${ORCID_ID}`;
-
-// Hassan maintains two separate documents: an academic CV (research-first,
-// publications and supervisor) and an industry resume (engineering-first).
-// Each page serves the one its audience expects.
-const ACADEMIC_CV = "/Hassan-Faisal-Resume.pdf";
-// TODO(hassan): drop the industry resume into /public and point this at it,
-// e.g. "/Hassan-Faisal-Industry-Resume.pdf". Until then / serves the academic CV.
-const INDUSTRY_RESUME = ACADEMIC_CV;
+export const SCHOLAR_URL =
+  "https://scholar.google.com/citations?user=VGsS-DwAAAAJ&hl=en";
 
 export const documents = {
-  engineering: { label: "Resume", href: INDUSTRY_RESUME },
-  research: { label: "Curriculum Vitae", href: ACADEMIC_CV },
+  resume: { label: "Resume", href: "/Hassan-Faisal-Resume.pdf" },
 } as const;
 
 export const profile = {
   name: "Hassan Faisal",
-  engineeringTitle: "Associate AI Engineer",
-  researchTitle: "AI & Machine Learning Researcher",
+  title: "Award-Winning AI Engineer",
+  role: "Associate AI Engineer",
   company: "Deep Cognitive Solutions",
   location: "Lahore, Pakistan",
   email: "iamhassanfaisal@gmail.com",
   phone: "(+92) 315 424 8614",
   phoneHref: "https://wa.me/+923154248614",
   linkedin: "https://www.linkedin.com/in/hassan-faisal",
+  bio: "I build AI systems that actually work — multi-agent architectures, RAG pipelines, and automation that runs on real infrastructure, not demos.",
 };
 
-export const tickerSkills = [
-  "Agentic AI",
-  "LangGraph",
-  "RAG",
-  "FastAPI",
-  "Python",
-  "LLMs",
-  "Vector Search",
-  "PyTorch",
-  "Docker",
-  "PostgreSQL",
-  "Machine Learning",
-  "Photogrammetry",
-];
-
-export const researchInterests = [
-  "Machine Learning",
-  "Large Language Models",
-  "Information Retrieval",
-  "Retrieval-Augmented Generation",
-  "Agentic AI Systems",
-  "Deep Learning",
-  "AI Systems Engineering",
+export const stats = [
+  { label: "Award", value: "Best Product & 2nd Place" },
+  { label: "Publications", value: "2 Conference Papers" },
+  { label: "Promoted in", value: "< 6 Months" },
 ];
 
 export const publications = [
@@ -80,92 +51,79 @@ export const publications = [
       "Enhancing Asthma Diagnosis: Leveraging Machine Learning Algorithms for Improved Predictive Accuracy",
     venue: "ICNGC 2025",
     role: "Second Author",
-    date: "Dec 2025",
-    type: "Conference Paper",
-    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=VGsS-DwAAAAJ&citation_for_view=VGsS-DwAAAAJ:u5HHmVD_uO8C" as string | null,
+    date: "2025",
+    authors: "S Abbas, H Faisal, A Amir, M Liaqat, S Khurram, U Ullah",
+    pages: "pp. 168-171",
+    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=VGsS-DwAAAAJ&citation_for_view=VGsS-DwAAAAJ:u5HHmVD_uO8C",
   },
   {
     icon: Plane,
     title: "Tour and Travel Customer Churn Predictions",
     venue: "ICNGC 2025",
     role: "Third Author",
-    date: "Dec 2025",
-    type: "Conference Paper",
-    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=VGsS-DwAAAAJ&citation_for_view=VGsS-DwAAAAJ:u-x6o8ySG0sC" as string | null,
+    date: "2025",
+    authors: "MF Khan, SZ Haider, H Faisal, M Liaqat, T Nawaz, SY Siddiqui",
+    pages: "pp. 201-204",
+    url: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=VGsS-DwAAAAJ&citation_for_view=VGsS-DwAAAAJ:u-x6o8ySG0sC",
   },
 ];
 
-export const researchExperience = {
-  icon: Microscope,
-  role: "Research Contributor — AI & Machine Learning",
-  place: "National College of Business Administration & Economics",
-  supervisor: "Dr. Fahad Ahmed",
-  date: "Dec 2024 — Dec 2025",
-  points: [
-    "Contributed to faculty-led Machine Learning research through literature review, experimentation, and comparative evaluation of predictive models.",
-    "Preprocessed research datasets — cleaning data, handling missing values, and preparing them for machine learning experiments.",
-    "Supported evaluation of experimental outcomes and refined findings through iterative experimentation.",
-    "Collaborated closely with the supervising faculty member from experimentation through to publication.",
-  ],
-};
-
-// Shared across both pages; each page frames them differently.
 export const projects = [
   {
     icon: Bot,
-    title: "Multi-Agent Customer Support System",
-    domain: "Multi-Agent AI Systems",
-    engineeringSummary:
-      "A LangGraph and FastAPI architecture coordinating specialized agents for query classification, knowledge retrieval, response generation, and fallback handling.",
-    researchSummary:
-      "A multi-agent architecture studying how specialized agents and retrieval strategies affect answer faithfulness and context precision.",
-    engineeringPoints: [
-      "Retrieval-Augmented Generation pipeline over vector search for source-grounded responses",
-      "Fallback handling so the system degrades gracefully instead of hallucinating",
-      "Iteratively tuned retrieval strategies, prompts, and agent workflows",
+    title: "Nimbus Help",
+    subtitle: "Multi-Agent Customer Support System",
+    description:
+      "An AI support team that resolves routine customer issues instantly — refunds, order tracking, troubleshooting — while routing risky or unusual cases to human staff.",
+    highlights: [
+      "LangGraph state machine orchestrating specialized billing, technical, and orders agents with handoff and fallback caps",
+      "Hybrid RAG with pgvector HNSW + full-text search, fused with Reciprocal Rank Fusion — 91% recall@3",
+      "Policy enforcement in pure functions: refund limits, return windows, row-locked transactions",
+      "PII redaction (Luhn-validated cards, SSNs, IBANs) before any model or log sees the data",
+      "86 backend tests, 92% coverage, 22 behavioral agent scenarios, CI evaluation pipeline",
     ],
-    researchPoints: [
-      "Evaluated with the RAGAS framework across faithfulness, answer relevancy, and context precision",
-      "Comparative iteration over retrieval strategies and prompt designs",
+    stack: [
+      "LangGraph",
+      "FastAPI",
+      "OpenAI",
+      "PostgreSQL",
+      "pgvector",
+      "React",
+      "Docker",
     ],
-    stack: ["LangGraph", "FastAPI", "RAG", "OpenAI API", "Vector Search", "RAGAS"],
+    github: "https://github.com/Hassan-Faisal/multi-agent-support-system",
+    featured: true,
   },
   {
-    icon: Boxes,
-    title: "Automated Photogrammetric Processing Framework",
-    domain: "Computer Vision & Photogrammetry",
-    engineeringSummary:
-      "An automated OpenDroneMap framework that turns aerial imagery into Orthomosaics, Digital Surface Models, and Digital Terrain Models without manual babysitting.",
-    researchSummary:
-      "A photogrammetric processing framework used to compare reconstruction quality against runtime and hardware cost across ODM profiles.",
-    engineeringPoints: [
-      "Python automation for dataset preprocessing, pipeline execution, and output management",
-      "Containerised with Docker for reproducible runs",
-      "Reduced manual processing overhead and improved reproducibility",
+    icon: Zap,
+    featured: false,
+    title: "AI WhatsApp Assistant",
+    subtitle: "Small Business Automation",
+    description:
+      "AI-powered WhatsApp assistant for meal ordering, subscriptions, and customer support — automating end-to-end business workflows for a small business.",
+    highlights: [
+      "Natural language ordering via WhatsApp with LangGraph agent orchestration",
+      "RAG-powered FAQ and support with business knowledge base",
+      "Subscription management and automated follow-ups",
+      "PostgreSQL-backed order and customer management",
     ],
-    researchPoints: [
-      "Comparative experimentation across multiple ODM processing profiles",
-      "Evaluated reconstruction quality, execution time, and hardware utilization",
-    ],
-    stack: ["Python", "OpenDroneMap", "WebODM", "Docker"],
+    stack: ["LangGraph", "FastAPI", "RAG", "PostgreSQL", "WhatsApp API"],
+    github:
+      "https://github.com/Hassan-Faisal/Small-Business-Automation-Project",
   },
   {
-    icon: Stethoscope,
-    title: "Healthcare Appointment Coordination System",
-    domain: "Healthcare Information Systems",
-    engineeringSummary:
-      "A full-stack platform where patients schedule appointments and providers manage availability, with authentication and role-based administrative workflows.",
-    researchSummary:
-      "A full-stack healthcare information system coordinating patient scheduling and provider availability.",
-    engineeringPoints: [
-      "RESTful backend services with authentication and role-based access control",
-      "Admin workflows for doctor schedules, appointments, and platform operations",
-      "ReactJS front end against a FastAPI and PostgreSQL backend",
+    icon: Network,
+    title: "Multi-Chat Support Platform",
+    subtitle: "Multi-Tenant AI Chatbot",
+    description:
+      "A multi-tenant AI chatbot platform supporting concurrent customer sessions with intelligent routing and context-aware responses.",
+    highlights: [
+      "Multi-tenant architecture serving multiple businesses from a single deployment",
+      "Context-aware conversation management across concurrent sessions",
+      "Retrieval-Augmented Generation for grounded, accurate responses",
     ],
-    researchPoints: [
-      "Role-based access control across patient, provider, and administrator flows",
-    ],
-    stack: ["Python", "FastAPI", "PostgreSQL", "ReactJS"],
+    stack: ["Python", "FastAPI", "LLMs", "RAG", "Vector Search"],
+    featured: false,
   },
 ];
 
@@ -174,130 +132,98 @@ export const capabilities = [
     icon: BrainCircuit,
     title: "Agentic AI Systems",
     text: "Multi-agent architectures that classify, retrieve, reason, and hand off — coordinated with LangGraph and served over FastAPI.",
-    tags: ["LangGraph", "Orchestration", "Tool use"],
   },
   {
     icon: Network,
-    title: "RAG Applications",
-    text: "Retrieval pipelines that ground answers in your knowledge base, measured for faithfulness and context precision.",
-    tags: ["Vector search", "Embeddings", "RAGAS"],
-  },
-  {
-    icon: FlaskConical,
-    title: "ML Experimentation",
-    text: "Predictive modelling with careful preprocessing, comparative evaluation, and honest performance analysis.",
-    tags: ["PyTorch", "Scikit-learn", "Evaluation"],
+    title: "RAG Pipelines",
+    text: "Hybrid retrieval systems with vector search, re-ranking, and citation — measured for faithfulness and precision, not vibes.",
   },
   {
     icon: Workflow,
-    title: "Automation & Pipelines",
-    text: "Python automation for dataset preparation, pipeline execution, and large-scale image processing — built for reproducibility.",
-    tags: ["Python", "Docker", "Pipelines"],
+    title: "Automation",
+    text: "Python automation for business workflows, data pipelines, and processing — built for reliability and reproducibility.",
+  },
+  {
+    icon: FlaskConical,
+    title: "ML & Evaluation",
+    text: "Predictive modelling with careful preprocessing, comparative evaluation, behavioral testing, and honest performance analysis.",
   },
 ];
 
 export const toolkit = [
   {
-    label: "ML & Deep Learning",
+    label: "AI & LLMs",
     items: [
-      "PyTorch",
-      "Scikit-learn",
-      "TensorFlow/Keras",
-      "Hugging Face Transformers",
-      "NumPy",
-      "Pandas",
-    ],
-  },
-  {
-    label: "Generative AI & LLM Systems",
-    items: [
-      "Large Language Models",
-      "LangChain",
       "LangGraph",
-      "Agentic AI",
+      "LangChain",
+      "OpenAI API",
       "Prompt Engineering",
       "Agent Orchestration",
     ],
   },
   {
-    label: "Information Retrieval & RAG",
+    label: "Retrieval & Search",
+    items: ["RAG", "pgvector", "FAISS", "Chroma", "Embeddings", "Semantic Search"],
+  },
+  {
+    label: "ML & Deep Learning",
     items: [
-      "RAG",
-      "Embeddings",
-      "Vector Databases",
-      "FAISS",
-      "Chroma",
-      "Pinecone",
-      "Semantic Search",
+      "PyTorch",
+      "Scikit-learn",
+      "TensorFlow",
+      "Hugging Face",
+      "NumPy",
+      "Pandas",
     ],
   },
   {
-    label: "Computer Vision & Photogrammetry",
-    items: [
-      "OpenDroneMap",
-      "WebODM",
-      "Image Processing",
-      "Orthomosaic Generation",
-      "DSM/DTM Processing",
-    ],
-  },
-  {
-    label: "Research & Experimentation",
-    items: [
-      "Literature Review",
-      "Dataset Preprocessing",
-      "Experimental Design",
-      "Comparative Evaluation",
-      "Model Evaluation",
-      "Performance Analysis",
-    ],
-  },
-  {
-    label: "Engineering & Tools",
+    label: "Engineering",
     items: [
       "Python",
       "TypeScript",
       "FastAPI",
-      "REST APIs",
       "PostgreSQL",
       "Docker",
+      "React",
       "Git",
-      "Jupyter",
     ],
   },
 ];
 
-// Current role. Hassan was promoted from AI Apprentice to Associate AI Engineer
-// within the same company, so tenure is tracked at the company level.
 export const currentRole = {
   icon: BriefcaseBusiness,
   title: "Associate AI Engineer",
-  previousTitle: "Promoted from Artificial Intelligence Apprentice",
-  place: "Deep Cognitive Solutions · Lahore, Pakistan",
+  previousTitle: "Promoted from AI Apprentice",
+  place: "Deep Cognitive Solutions",
+  location: "Lahore, Pakistan",
   date: "Mar 2026 — Present",
-  kind: "Professional",
   points: [
-    "Build AI-powered applications spanning machine learning workflows, experimentation, and AI system development.",
-    "Evaluate and optimize large-scale image processing pipelines through systematic experimentation and performance analysis.",
-    "Develop Python automation workflows to streamline repetitive processing tasks and improve efficiency.",
-    "Implement modern AI paradigms including Large Language Models, Retrieval-Augmented Generation, and Agentic AI systems.",
-    "Collaborate with AI engineers on the design, implementation, and iterative improvement of AI-driven software.",
+    "Build AI-powered applications spanning multi-agent systems, RAG pipelines, and LLM integrations",
+    "Develop Python automation workflows for business process optimization",
+    "Implement and evaluate large-scale AI systems with modern paradigms",
+    "Promoted from AI Apprentice within 6 months based on delivery and impact",
+  ],
+};
+
+export const researchExperience = {
+  icon: Microscope,
+  role: "Research Contributor — AI & Machine Learning",
+  place: "National College of Business Administration & Economics",
+  supervisor: "Dr. Fahad Ahmed",
+  date: "Dec 2024 — Dec 2025",
+  points: [
+    "Contributed to faculty-led ML research resulting in 2 published conference papers",
+    "Designed and ran experiments for predictive modelling with comparative evaluation",
+    "Collaborated from experimentation through to publication at ICNGC 2025",
   ],
 };
 
 export const education = {
   icon: GraduationCap,
-  title: "BS, Computer Science",
+  title: "BS Computer Science",
   place: "National College of Business Administration & Economics",
   date: "Mar 2022 — Jan 2026",
-  kind: "Education",
-  detail: "CGPA 3.50 / 4.0 · 133 credit hours",
-  points: [
-    "Coursework and academic projects in Machine Learning, Artificial Intelligence, and Software Engineering.",
-    "Co-authored two conference papers, gaining experience in literature review, experimentation, and research evaluation methodology.",
-    "Explored RAG, Large Language Models, and Agentic AI through academic and independent projects.",
-  ],
-  // Verifiable credentials, linked from the CV.
+  detail: "CGPA 3.50 / 4.0",
   credentials: [
     {
       label: "Degree",

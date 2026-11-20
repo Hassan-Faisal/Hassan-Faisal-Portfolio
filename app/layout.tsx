@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import ThemeProvider from "./components/ThemeProvider";
 import "./globals.css";
 
 const display = Space_Grotesk({
@@ -23,32 +24,28 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  // The live deployment linked from the CV. Change this if you move to a custom domain.
   metadataBase: new URL("https://hassan-faisal-portfolio.vercel.app"),
   title: {
-    default: "Hassan Faisal — Associate AI Engineer",
-    template: "%s",
+    default: "Hassan Faisal — Award-Winning AI Engineer",
+    template: "%s | Hassan Faisal",
   },
   description:
-    "Hassan Faisal is an Associate AI Engineer at Deep Cognitive Solutions, building multi-agent AI systems, RAG pipelines, and Python automation with LangGraph and FastAPI.",
+    "Award-winning AI Engineer building multi-agent systems, RAG pipelines, and automation. 2 published papers. Best Product Award at Comeback Pakistan.",
   keywords: [
     "Hassan Faisal",
-    "Associate AI Engineer",
     "AI Engineer",
-    "Agentic AI",
+    "Award-Winning",
     "Multi-Agent Systems",
-    "Retrieval-Augmented Generation",
     "RAG",
     "LangGraph",
     "FastAPI",
-    "Large Language Models",
-    "Python",
     "Machine Learning",
+    "Python",
   ],
   authors: [{ name: "Hassan Faisal" }],
   creator: "Hassan Faisal",
   openGraph: {
-    title: "Hassan Faisal — Associate AI Engineer",
+    title: "Hassan Faisal — Award-Winning AI Engineer",
     description:
       "Multi-agent AI systems, RAG pipelines, and automation — built to reason, retrieve, and hold up in production.",
     type: "website",
@@ -56,14 +53,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hassan Faisal — Associate AI Engineer",
+    title: "Hassan Faisal — Award-Winning AI Engineer",
     description:
       "Multi-agent AI systems, RAG pipelines, and automation — built to reason, retrieve, and hold up in production.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#06070B",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -74,10 +71,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-scroll-behavior="smooth"
       className={`${display.variable} ${body.variable} ${mono.variable} scroll-smooth`}
     >
-      <body className="bg-void font-sans text-white antialiased">{children}</body>
+      <body className="bg-white font-sans text-stone-900 antialiased dark:bg-stone-950 dark:text-stone-100">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

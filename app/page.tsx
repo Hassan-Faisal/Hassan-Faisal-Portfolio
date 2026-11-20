@@ -1,249 +1,245 @@
-import { ArrowUpRight, ArrowRight, FileText, ScrollText, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ExternalLink,
+  FileText,
+  Github,
+  MapPin,
+} from "lucide-react";
 
 import SiteNav from "./components/SiteNav";
 import Reveal from "./components/Reveal";
-import AgentGraph from "./components/AgentGraph";
 import AwardCard from "./components/AwardCard";
 import ContactSection from "./components/ContactSection";
 import {
   capabilities,
   currentRole,
-  documents,
   education,
+  documents,
   profile,
   projects,
   publications,
-  tickerSkills,
+  researchExperience,
+  stats,
   toolkit,
+  GITHUB_URL,
+  SCHOLAR_URL,
 } from "./lib/profile";
 
-const heroStats = [
-  ["Now", "Associate AI Engineer"],
-  ["Comeback Pakistan", "Best Product · 2nd"],
-  ["Core stack", "Python · FastAPI"],
-];
-
-export default function EngineeringPage() {
+export default function HomePage() {
   return (
-    <main className="grain overflow-hidden bg-void text-white">
-      <SiteNav variant="engineering" />
+    <main className="bg-white text-stone-900 dark:bg-stone-950 dark:text-stone-100">
+      <SiteNav />
 
-      {/* ---------------- HERO ---------------- */}
-      <section id="home" className="grid-bg relative min-h-screen overflow-hidden px-5 pt-32">
-        <div className="aurora left-[-6rem] top-24 h-80 w-80 bg-ember/20" />
-        <div className="aurora right-[-4rem] top-40 h-96 w-96 bg-iris/20" />
+      {/* ---- HERO ---- */}
+      <section
+        id="home"
+        className="relative overflow-hidden px-5 pb-20 pt-32 sm:pt-40"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(249,115,22,0.06),transparent)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(249,115,22,0.1),transparent)]" />
 
-        <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-14 py-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative z-10 max-w-2xl">
-            <div
-              className="fade-up mb-7 inline-flex items-center gap-2 rounded-full border border-mint/30 bg-mint/10 px-3.5 py-1.5"
-              style={{ animationDelay: "80ms" }}
-            >
+        <div className="relative mx-auto max-w-4xl text-center">
+          <Reveal>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 dark:border-orange-900 dark:bg-orange-950/50">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
               </span>
-              <span className="mono-tag font-semibold uppercase tracking-[0.16em] text-mint">
-                Associate AI Engineer · {profile.company}
+              <span className="font-mono text-xs font-medium tracking-wide text-orange-700 dark:text-orange-400">
+                {profile.role} at {profile.company}
               </span>
             </div>
+          </Reveal>
 
-            <p
-              className="fade-up mb-3 font-mono text-sm text-white/45"
-              style={{ animationDelay: "160ms" }}
-            >
-              {profile.name} — AI Engineer
-            </p>
-
-            <h1
-              className="fade-up text-[2.7rem] font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-[4rem]"
-              style={{ animationDelay: "240ms" }}
-            >
-              I ship AI systems that{" "}
-              <span className="text-gradient">reason, retrieve,</span> and hold
-              up in production.
+          <Reveal delay={80}>
+            <h1 className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
+              {profile.title.split("AI Engineer")[0]}
+              <span className="text-gradient">AI Engineer</span>
             </h1>
+          </Reveal>
 
-            <p
-              className="fade-up mt-6 max-w-xl text-lg leading-8 text-white/65"
-              style={{ animationDelay: "340ms" }}
-            >
-              I build multi-agent architectures, RAG pipelines, and automation
-              that runs on real infrastructure — LangGraph and FastAPI on the
-              inside, measured with evaluation frameworks rather than vibes.
+          <Reveal delay={160}>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-500 dark:text-stone-400">
+              {profile.bio}
             </p>
+          </Reveal>
 
-            <div
-              className="fade-up mt-8 flex flex-wrap gap-3"
-              style={{ animationDelay: "440ms" }}
-            >
-              <a href="#work" className="btn-primary">
-                See the systems <ArrowUpRight size={17} />
+          <Reveal delay={240}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <a href="#projects" className="btn-primary">
+                View my work <ArrowRight size={16} />
               </a>
               <a
-                href={documents.engineering.href}
+                href={documents.resume.href}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-secondary"
               >
-                <ScrollText size={16} /> {documents.engineering.label}
+                <FileText size={16} /> Resume
+              </a>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+              >
+                <Github size={16} /> GitHub
               </a>
             </div>
+          </Reveal>
 
-            <div
-              className="fade-up mt-11 grid max-w-xl grid-cols-3 gap-4 border-t border-white/10 pt-7"
-              style={{ animationDelay: "540ms" }}
-            >
-              {heroStats.map(([label, value]) => (
-                <div key={label}>
-                  <p className="mono-tag uppercase tracking-[0.12em] text-white/40">
+          <Reveal delay={320}>
+            <div className="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-stone-200 pt-8 dark:border-stone-800">
+              {stats.map(({ label, value }) => (
+                <div key={label} className="text-center">
+                  <p className="font-mono text-[0.65rem] uppercase tracking-widest text-stone-400">
                     {label}
                   </p>
-                  <p className="mt-1.5 text-sm font-semibold text-white/90">{value}</p>
+                  <p className="mt-1.5 text-sm font-semibold text-stone-800 dark:text-stone-200">
+                    {value}
+                  </p>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Signature: the multi-agent support system, visualised */}
-          <div className="fade-up relative z-10" style={{ animationDelay: "360ms" }}>
-            <div className="float-slow relative rounded-3xl border border-white/10 bg-panel/70 p-4 shadow-card backdrop-blur-sm sm:p-6">
-              <div className="mb-4 flex items-center justify-between border-b border-white/8 pb-3">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-flame" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-mint" />
-                </div>
-                <span className="mono-tag text-white/40">multi-agent support · live</span>
-              </div>
-
-              <AgentGraph />
-
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-white/8 pt-4">
-                {[
-                  ["bg-ember", "reasoning"],
-                  ["bg-iris-2", "tool call"],
-                  ["bg-mint", "retrieval"],
-                ].map(([dot, label]) => (
-                  <span key={label} className="flex items-center gap-2 mono-tag text-white/55">
-                    <span className={`h-2 w-2 rounded-full ${dot}`} />
-                    {label}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="ticker-mask relative z-10 -mx-5 border-y border-white/10 bg-panel/60 py-4 backdrop-blur-sm">
-          <div className="ticker-track">
-            {[...tickerSkills, ...tickerSkills].map((skill, index) => (
-              <span
-                key={`${skill}-${index}`}
-                className="flex items-center gap-8 px-8 font-mono text-sm font-medium uppercase tracking-[0.12em] text-white/80"
-              >
-                {skill}
-                <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-              </span>
-            ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ---------------- WORK ---------------- */}
-      <section id="work" className="relative bg-ink px-5 py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl">
-          <Reveal className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="section-label">Selected Work</p>
-              <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
-                Systems I&apos;ve built
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-white/55">
-              Multi-agent AI, computer-vision automation, and full-stack
-              product — each with the architecture and stack that shipped it.
+      {/* ---- FEATURED PROJECTS ---- */}
+      <section id="projects" className="bg-stone-50 px-5 py-20 dark:bg-stone-900/50 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="section-label">Selected Work</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+              Systems I&apos;ve built
+            </h2>
+            <p className="mt-3 max-w-xl text-stone-500 dark:text-stone-400">
+              Real projects with real architecture — not tutorials or clones.
             </p>
           </Reveal>
 
-          <div className="grid gap-5 lg:grid-cols-3">
-            {projects.map(
-              ({ icon: Icon, title, domain, engineeringSummary, engineeringPoints, stack }, i) => (
-                <Reveal key={title} delay={i * 110}>
-                  <article className="card card-glow group flex h-full flex-col p-7">
-                    <div className="flex items-center justify-between">
-                      <div className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-ember transition group-hover:border-ember/40">
-                        <Icon size={22} />
+          <div className="mt-12 space-y-6">
+            {projects
+              .filter((p) => p.featured)
+              .map((project, i) => {
+                const Icon = project.icon;
+                return (
+                  <Reveal key={project.title} delay={i * 100}>
+                    <article className="card group overflow-hidden">
+                      <div className="p-7 sm:p-9">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-3">
+                            <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                              <Icon size={20} />
+                            </span>
+                            <div>
+                              <h3 className="font-display text-xl font-bold sm:text-2xl">
+                                {project.title}
+                              </h3>
+                              <p className="font-mono text-xs text-stone-400">
+                                {project.subtitle}
+                              </p>
+                            </div>
+                          </div>
+                          {project.github && (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="hidden items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1.5 font-mono text-xs text-stone-500 transition hover:border-orange-300 hover:text-orange-600 dark:border-stone-700 dark:text-stone-400 dark:hover:border-orange-700 dark:hover:text-orange-400 sm:inline-flex"
+                            >
+                              <Github size={13} /> Source
+                              <ExternalLink size={11} />
+                            </a>
+                          )}
+                        </div>
+
+                        <p className="mt-5 leading-relaxed text-stone-600 dark:text-stone-400">
+                          {project.description}
+                        </p>
+
+                        <ul className="mt-6 space-y-2">
+                          {project.highlights.map((h) => (
+                            <li
+                              key={h}
+                              className="flex gap-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400"
+                            >
+                              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange-400" />
+                              {h}
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div className="mt-6 flex flex-wrap gap-1.5">
+                          {project.stack.map((s) => (
+                            <span key={s} className="chip">
+                              {s}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <ArrowUpRight
-                        className="text-white/20 transition group-hover:text-ember"
-                        size={22}
-                      />
-                    </div>
+                    </article>
+                  </Reveal>
+                );
+              })}
+          </div>
 
-                    <p className="mt-7 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-amber/80">
-                      {domain}
-                    </p>
-                    <h3 className="mt-2 font-display text-xl font-semibold leading-snug">
-                      {title}
-                    </h3>
-                    <p className="mt-4 text-sm leading-7 text-white/60">
-                      {engineeringSummary}
-                    </p>
-
-                    <ul className="mt-5 space-y-2.5">
-                      {engineeringPoints.map((point) => (
-                        <li
-                          key={point}
-                          className="flex gap-2.5 text-sm leading-6 text-white/55"
-                        >
-                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ember" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-auto flex flex-wrap gap-1.5 pt-6">
-                      {stack.map((item) => (
-                        <span key={item} className="chip">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                </Reveal>
-              ),
-            )}
+          {/* Non-featured projects */}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {projects
+              .filter((p) => !p.featured)
+              .map((project, i) => {
+                const Icon = project.icon;
+                return (
+                  <Reveal key={project.title} delay={i * 80}>
+                    <article className="card h-full p-6">
+                      <span className="grid h-9 w-9 place-items-center rounded-lg bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                        <Icon size={18} />
+                      </span>
+                      <h3 className="mt-4 font-display text-lg font-semibold">
+                        {project.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+                        {project.description}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-1.5">
+                        {project.stack.map((s) => (
+                          <span key={s} className="chip">
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </article>
+                  </Reveal>
+                );
+              })}
           </div>
         </div>
       </section>
 
-      {/* ---------------- CAPABILITIES ---------------- */}
-      <section id="capabilities" className="grid-bg relative bg-void px-5 py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl">
-          <Reveal className="text-center">
-            <p className="section-label justify-center">Capabilities</p>
-            <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-bold sm:text-5xl">
-              What I bring to an engineering team.
+      {/* ---- CAPABILITIES ---- */}
+      <section id="capabilities" className="px-5 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="section-label">What I Do</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+              Capabilities
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {capabilities.map(({ icon: Icon, title, text, tags }, i) => (
-              <Reveal key={title} delay={i * 90}>
-                <article className="card card-glow h-full p-6">
-                  <div className="mb-6 grid h-12 w-12 place-items-center rounded-xl border border-ember/25 bg-ember/10 text-ember">
-                    <Icon size={22} />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold">{title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/60">{text}</p>
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {tags.map((t) => (
-                      <span key={t} className="chip">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {capabilities.map(({ icon: Icon, title, text }, i) => (
+              <Reveal key={title} delay={i * 80}>
+                <article className="card h-full p-6">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                    <Icon size={20} />
+                  </span>
+                  <h3 className="mt-5 font-display text-base font-semibold">
+                    {title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+                    {text}
+                  </p>
                 </article>
               </Reveal>
             ))}
@@ -251,19 +247,24 @@ export default function EngineeringPage() {
         </div>
       </section>
 
-      {/* ---------------- STACK ---------------- */}
-      <section id="stack" className="relative bg-ink px-5 py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl">
-          <Reveal className="mb-12">
-            <p className="section-label">Toolkit</p>
-            <h2 className="mt-4 text-4xl font-bold sm:text-5xl">Technical stack</h2>
+      {/* ---- STACK ---- */}
+      <section id="stack" className="bg-stone-50 px-5 py-20 dark:bg-stone-900/50 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="section-label">Stack</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+              Technologies I work with
+            </h2>
           </Reveal>
+
           <Reveal delay={100}>
-            <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {toolkit.map(({ label, items }) => (
-                <div key={label} className="border-t border-white/12 pt-5">
-                  <p className="mono-tag uppercase tracking-[0.12em] text-amber">{label}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
+                <div key={label}>
+                  <p className="mb-3 font-mono text-xs font-medium uppercase tracking-widest text-stone-400">
+                    {label}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
                     {items.map((item) => (
                       <span key={item} className="chip">
                         {item}
@@ -277,108 +278,202 @@ export default function EngineeringPage() {
         </div>
       </section>
 
-      {/* ---------------- EXPERIENCE ---------------- */}
-      <section id="experience" className="grid-bg relative bg-void px-5 py-24 sm:py-28">
-        <div className="mx-auto max-w-5xl">
-          <Reveal className="text-center">
-            <p className="section-label justify-center">Background</p>
-            <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
-              Experience &amp; recognition
+      {/* ---- PUBLICATIONS ---- */}
+      <section id="publications" className="px-5 py-20 sm:py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <p className="section-label">Research</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+              Publications
             </h2>
+            <p className="mt-3 text-stone-500 dark:text-stone-400">
+              Peer-reviewed conference papers at the International Conference on
+              Next-Generation Computing (ICNGC 2025).
+            </p>
           </Reveal>
 
-          <div className="mt-14">
-            <AwardCard />
-          </div>
-
-          <div className="mt-4 space-y-4">
-            {[currentRole, education].map((item, i) => {
-              const Icon = item.icon;
-              const detail =
-                "previousTitle" in item ? item.previousTitle : item.detail;
+          <div className="mt-10 space-y-4">
+            {publications.map((pub, i) => {
+              const Icon = pub.icon;
               return (
-                <Reveal key={item.title} delay={i * 100}>
-                  <article className="card grid gap-5 p-7 md:grid-cols-[190px_1fr]">
-                    <div>
-                      <div className="font-mono text-sm font-medium text-ember">
-                        {item.date}
-                      </div>
-                      <div className="mt-1.5 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-white/35">
-                        {item.kind}
+                <Reveal key={pub.title} delay={i * 100}>
+                  <a
+                    href={pub.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="card group flex gap-5 p-6 no-underline transition"
+                  >
+                    <span className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                      <Icon size={18} />
+                    </span>
+                    <div className="min-w-0">
+                      <h3 className="font-display text-base font-semibold leading-snug text-stone-800 group-hover:text-orange-600 dark:text-stone-200 dark:group-hover:text-orange-400">
+                        {pub.title}
+                      </h3>
+                      <p className="mt-1.5 text-sm text-stone-500 dark:text-stone-400">
+                        {pub.authors}
+                      </p>
+                      <div className="mt-2 flex flex-wrap items-center gap-3">
+                        <span className="chip">{pub.venue}</span>
+                        <span className="chip">{pub.role}</span>
+                        <span className="chip">{pub.pages}</span>
                       </div>
                     </div>
-                    <div>
-                      <div className="mb-3 flex items-start gap-3">
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-ember/25 bg-ember/10 text-ember">
-                          <Icon size={17} />
-                        </span>
-                        <div>
-                          <h3 className="font-display text-lg font-semibold leading-snug sm:text-xl">
-                            {item.title}
-                          </h3>
-                          {detail && (
-                            <p className="mt-1 font-mono text-[0.7rem] text-amber/80">
-                              {detail}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <p className="font-medium text-white/60">{item.place}</p>
-                      <ul className="mt-4 space-y-2.5">
-                        {item.points.map((point) => (
-                          <li
-                            key={point}
-                            className="flex gap-2.5 text-sm leading-6 text-white/55"
-                          >
-                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ember" />
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </article>
+                    <ArrowUpRight
+                      size={16}
+                      className="mt-1 shrink-0 text-stone-300 transition group-hover:text-orange-500 dark:text-stone-600"
+                    />
+                  </a>
                 </Reveal>
               );
             })}
           </div>
 
-          {/* Research credibility strip → routes to the research view */}
-          <Reveal delay={120} className="mt-4">
-            <a
-              href="/research"
-              className="card card-glow group flex flex-col gap-5 p-7 text-white no-underline sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div className="flex items-start gap-4">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-iris/30 bg-iris/10 text-iris-2">
-                  <Sparkles size={20} />
-                </span>
-                <div>
-                  <p className="font-display text-lg font-semibold">
-                    I also publish research
-                  </p>
-                  <p className="mt-1.5 text-sm leading-6 text-white/55">
-                    Two peer-reviewed conference papers at ICNGC 2025, plus a year
-                    of faculty-led ML research.
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {publications.map((p) => (
-                      <span key={p.title} className="chip">
-                        <FileText size={11} className="mr-1 inline" />
-                        {p.venue} · {p.role}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <span className="inline-flex shrink-0 items-center gap-2 font-mono text-xs text-ember">
-                View research <ArrowRight size={14} />
-              </span>
-            </a>
+          <Reveal delay={200}>
+            <div className="mt-6 text-center">
+              <a
+                href={SCHOLAR_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 font-mono text-sm text-stone-500 transition hover:text-orange-600 dark:text-stone-400 dark:hover:text-orange-400"
+              >
+                View on Google Scholar <ExternalLink size={14} />
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <ContactSection variant="engineering" />
+      {/* ---- EXPERIENCE ---- */}
+      <section id="experience" className="bg-stone-50 px-5 py-20 dark:bg-stone-900/50 sm:py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <p className="section-label">Background</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+              Experience & Education
+            </h2>
+          </Reveal>
+
+          <div className="mt-10">
+            <AwardCard />
+          </div>
+
+          {/* Current Role */}
+          <Reveal delay={100} className="mt-4">
+            <article className="card p-7">
+              <div className="flex items-start gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                  <currentRole.icon size={20} />
+                </span>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-display text-lg font-bold">
+                      {currentRole.title}
+                    </h3>
+                    <span className="font-mono text-xs text-orange-600 dark:text-orange-400">
+                      {currentRole.previousTitle}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                    {currentRole.place} · {currentRole.location}
+                  </p>
+                  <p className="font-mono text-xs text-stone-400">
+                    {currentRole.date}
+                  </p>
+                  <ul className="mt-4 space-y-2">
+                    {currentRole.points.map((p) => (
+                      <li
+                        key={p}
+                        className="flex gap-2.5 text-sm leading-relaxed text-stone-600 dark:text-stone-400"
+                      >
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange-400" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          {/* Research */}
+          <Reveal delay={150} className="mt-4">
+            <article className="card p-7">
+              <div className="flex items-start gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                  <researchExperience.icon size={20} />
+                </span>
+                <div className="min-w-0">
+                  <h3 className="font-display text-lg font-bold">
+                    {researchExperience.role}
+                  </h3>
+                  <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                    {researchExperience.place} · Supervisor:{" "}
+                    {researchExperience.supervisor}
+                  </p>
+                  <p className="font-mono text-xs text-stone-400">
+                    {researchExperience.date}
+                  </p>
+                  <ul className="mt-4 space-y-2">
+                    {researchExperience.points.map((p) => (
+                      <li
+                        key={p}
+                        className="flex gap-2.5 text-sm leading-relaxed text-stone-600 dark:text-stone-400"
+                      >
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange-400" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          {/* Education */}
+          <Reveal delay={200} className="mt-4">
+            <article className="card p-7">
+              <div className="flex items-start gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
+                  <education.icon size={20} />
+                </span>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-display text-lg font-bold">
+                      {education.title}
+                    </h3>
+                    <span className="font-mono text-xs text-stone-500 dark:text-stone-400">
+                      {education.detail}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                    {education.place}
+                  </p>
+                  <p className="font-mono text-xs text-stone-400">
+                    {education.date}
+                  </p>
+                  <div className="mt-3 flex gap-3">
+                    {education.credentials.map((c) => (
+                      <a
+                        key={c.label}
+                        href={c.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 font-mono text-xs text-orange-600 transition hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
+                      >
+                        <FileText size={12} /> Verify {c.label}
+                        <ExternalLink size={10} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        </div>
+      </section>
+
+      <ContactSection />
     </main>
   );
 }

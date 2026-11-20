@@ -70,16 +70,15 @@ export const publications = [
 export const projects = [
   {
     icon: Bot,
-    title: "Nimbus Help",
-    subtitle: "Multi-Agent Customer Support System",
+    title: "Multi-Agent Support System",
+    subtitle: "AI-Powered Customer Support",
     description:
-      "An AI support team that resolves routine customer issues instantly — refunds, order tracking, troubleshooting — while routing risky or unusual cases to human staff.",
+      "A multi-agent AI system that handles customer support tasks — billing inquiries, order tracking, and troubleshooting — with automatic routing between specialized agents and human handoff when needed.",
     highlights: [
-      "LangGraph state machine orchestrating specialized billing, technical, and orders agents with handoff and fallback caps",
-      "Hybrid RAG with pgvector HNSW + full-text search, fused with Reciprocal Rank Fusion — 91% recall@3",
-      "Policy enforcement in pure functions: refund limits, return windows, row-locked transactions",
-      "PII redaction (Luhn-validated cards, SSNs, IBANs) before any model or log sees the data",
-      "86 backend tests, 92% coverage, 22 behavioral agent scenarios, CI evaluation pipeline",
+      "Multi-agent orchestration with LangGraph for task-specific routing",
+      "RAG-powered knowledge retrieval using pgvector for accurate responses",
+      "Automated policy enforcement for refunds, returns, and escalations",
+      "Human-in-the-loop escalation for edge cases the system can't resolve confidently",
     ],
     stack: [
       "LangGraph",

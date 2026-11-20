@@ -89,7 +89,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={320}>
-            <div className="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-stone-200 pt-8 dark:border-stone-800">
+            <div className="mx-auto mt-14 grid max-w-md grid-cols-2 gap-6 border-t border-stone-200 pt-8 dark:border-stone-800">
               {stats.map(({ label, value }) => (
                 <div key={label} className="text-center">
                   <p className="font-mono text-[0.65rem] uppercase tracking-widest text-stone-400">

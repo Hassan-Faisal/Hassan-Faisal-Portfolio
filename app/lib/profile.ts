@@ -41,7 +41,6 @@ export const profile = {
 export const stats = [
   { label: "Award", value: "Best Product & 2nd Place" },
   { label: "Publications", value: "2 Conference Papers" },
-  { label: "Promoted in", value: "< 6 Months" },
 ];
 
 export const publications = [

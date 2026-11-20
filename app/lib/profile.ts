@@ -96,7 +96,7 @@ export const projects = [
   },
   {
     icon: Zap,
-    featured: false,
+    featured: true,
     title: "AI WhatsApp Assistant",
     subtitle: "Small Business Automation",
     description:
@@ -123,7 +123,7 @@ export const projects = [
       "Retrieval-Augmented Generation for grounded, accurate responses",
     ],
     stack: ["Python", "FastAPI", "LLMs", "RAG", "Vector Search"],
-    featured: false,
+    featured: true,
   },
 ];
 

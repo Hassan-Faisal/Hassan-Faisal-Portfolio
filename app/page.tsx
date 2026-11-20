@@ -119,9 +119,7 @@ export default function HomePage() {
           </Reveal>
 
           <div className="mt-12 space-y-6">
-            {projects
-              .filter((p) => p.featured)
-              .map((project, i) => {
+            {projects.map((project, i) => {
                 const Icon = project.icon;
                 return (
                   <Reveal key={project.title} delay={i * 100}>
@@ -184,36 +182,6 @@ export default function HomePage() {
               })}
           </div>
 
-          {/* Non-featured projects */}
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {projects
-              .filter((p) => !p.featured)
-              .map((project, i) => {
-                const Icon = project.icon;
-                return (
-                  <Reveal key={project.title} delay={i * 80}>
-                    <article className="card h-full p-6">
-                      <span className="grid h-9 w-9 place-items-center rounded-lg bg-orange-50 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400">
-                        <Icon size={18} />
-                      </span>
-                      <h3 className="mt-4 font-display text-lg font-semibold">
-                        {project.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-stone-500 dark:text-stone-400">
-                        {project.description}
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {project.stack.map((s) => (
-                          <span key={s} className="chip">
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </article>
-                  </Reveal>
-                );
-              })}
-          </div>
         </div>
       </section>
 

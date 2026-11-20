@@ -36,7 +36,16 @@ export default function HomePage() {
         id="home"
         className="relative overflow-hidden px-5 pb-20 pt-32 sm:pt-40"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(249,115,22,0.06),transparent)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(249,115,22,0.1),transparent)]" />
+        {/* Dot grid pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, #f97316 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+
+        {/* Floating gradient orbs */}
+        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-orange-400/10 blur-[100px] animate-float dark:bg-orange-500/15" />
+        <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full bg-amber-400/8 blur-[100px] animate-float-delayed dark:bg-amber-500/10" />
+        <div className="pointer-events-none absolute -bottom-20 left-1/3 h-64 w-64 rounded-full bg-orange-300/8 blur-[80px] animate-float-slow dark:bg-orange-600/10" />
+
+        {/* Radial gradient overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(249,115,22,0.08),transparent)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(249,115,22,0.12),transparent)]" />
 
         <div className="relative mx-auto max-w-4xl text-center">
           <Reveal>
@@ -54,7 +63,7 @@ export default function HomePage() {
           <Reveal delay={80}>
             <h1 className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
               {profile.title.split("AI Engineer")[0]}
-              <span className="text-gradient">AI Engineer</span>
+              <span className="text-gradient-animated">AI Engineer</span>
             </h1>
           </Reveal>
 
